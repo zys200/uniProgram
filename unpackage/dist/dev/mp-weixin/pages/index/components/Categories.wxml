@@ -1,0 +1,1 @@
+<view class="box data-v-75541714"><view wx:for="{{a}}" wx:for-item="item" wx:key="c" class="boxItem data-v-75541714"><image src="{{item.a}}" class="imgs data-v-75541714"></image><text class="tt data-v-75541714">{{item.b}}</text></view></view>

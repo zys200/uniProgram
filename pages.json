@@ -1,0 +1,92 @@
+{
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue",
+			"uni-(.*)": "@/components/Test$1.vue"
+		}
+	},
+	"pages": [{
+			"path": "pages/index/index",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/more/more",
+			"style": {
+				"navigationBarTitleText": "更多"
+			}
+		},
+		{
+			"path": "pages/car/car",
+			"style": {
+				"navigationBarTitleText": "购物车"
+			}
+		},
+		{
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/hests/hests",
+			"style": {
+				"navigationBarTitleText": "推荐"
+			}
+		},
+		{
+			"path": "pages/details/details",
+			"style": {
+				"navigationBarTitleText": "详情"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#d9b",
+		"backgroundColor": "#000"
+	},
+	"tabBar": {
+		"list": [{
+				"text": "首页",
+				"pagePath": "pages/index/index",
+				"iconPath": "static/iconfonts/shouye2.png",
+				"selectedIconPath": "static/iconfonts/shouye1.png"
+			},
+			{
+				"pagePath": "pages/more/more",
+				"text": "更多",
+				"iconPath": "static/iconfonts/category2.png",
+				"selectedIconPath": "static/iconfonts/category1.png"
+			},
+			{
+				"text": "购物车",
+				"pagePath": "pages/car/car",
+				"iconPath": "static/iconfonts/gouwu1.png",
+				"selectedIconPath": "static/iconfonts/gouwu2.png"
+			},
+			{
+				"text": "我的",
+				"pagePath": "pages/mine/mine",
+				"iconPath": "static/iconfonts/mine1.png",
+				"selectedIconPath": "static/iconfonts/mine2.png"
+			}
+		],
+		"color": "#000",
+		"selectedColor": "#000"
+	},
+	"uniIdRouter": {},
+	"condition": { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [{
+			"name": "", //模式名称
+			"path": "", //启动页面，必选
+			"query": "" //启动参数，在页面的onLoad函数里面得到
+		}]
+	}
+}

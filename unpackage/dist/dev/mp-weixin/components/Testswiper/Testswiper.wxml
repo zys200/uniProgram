@@ -1,0 +1,1 @@
+<swiper class="sp data-v-74fbd399" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{3000}}" duration="{{1000}}"><swiper-item wx:for="{{a}}" wx:for-item="item" wx:key="b" class="data-v-74fbd399"><view class="data-v-74fbd399"><image src="{{item.a}}" class="imgs data-v-74fbd399"></image></view></swiper-item></swiper>

@@ -1,0 +1,43 @@
+
+.box.data-v-c1189d14 {
+		width: 100%;
+}
+.topImg.data-v-c1189d14 {
+		width: 100%;
+		height: 160px;
+}
+.ti.data-v-c1189d14 {
+		width: 100%;
+		height: 160px;
+}
+.usc.data-v-c1189d14 {
+		width: 100%;
+}
+.uscItem.data-v-c1189d14 {
+		width: 30%;
+		height: 200px;
+}
+.content .vc.data-v-c1189d14 {
+		display: flex;
+		flex-wrap: wrap;
+}
+.contentItem.data-v-c1189d14 {
+		flex: 50%;
+		display: flex;
+		flex-direction: column;
+}
+.contentItem .imgss.data-v-c1189d14 {
+		margin: 0 auto;
+		padding: 2px 0;
+		width: 100px;
+		height: 100px;
+}
+.contentItem .tt.data-v-c1189d14 {
+		padding-left: 2px;
+		display: inline-block;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		text-overflow: ellipsis;
+		overflow: hidden;
+}

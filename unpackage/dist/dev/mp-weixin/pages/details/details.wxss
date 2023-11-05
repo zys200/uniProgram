@@ -1,0 +1,113 @@
+.box.data-v-4b799d2f {
+  width: 100%;
+}
+.box .imgs.data-v-4b799d2f {
+  width: 100%;
+  height: 100%;
+}
+.box .imgs .swiperItem.data-v-4b799d2f {
+  width: 100%;
+}
+.box .imgs .swiperItem .mainImg.data-v-4b799d2f {
+  width: 100%;
+  height: 300px;
+}
+.box .price.data-v-4b799d2f {
+  padding: 0 30px;
+  width: 100%;
+  height: 70px;
+  background-color: #d9b;
+  font-size: 22px;
+  line-height: 70px;
+}
+.box .dscs.data-v-4b799d2f {
+  display: flex;
+  flex-direction: column;
+}
+.box .dscs > text.data-v-4b799d2f:first-child {
+  font-size: 18px;
+  color: black;
+}
+.box .dscs .ttt.data-v-4b799d2f {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-style: 12px;
+  color: grey;
+}
+.box .choose .fuwu.data-v-4b799d2f {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 50px;
+  border: 1px solid gainsboro;
+  line-height: 50px;
+}
+.box .choose .fuwu .t1.data-v-4b799d2f {
+  width: 100px;
+  padding-left: 20px;
+}
+.box .choose .fuwu .t2.data-v-4b799d2f {
+  flex: 1;
+}
+.box .choose .fuwu .t2 .t2.data-v-4b799d2f::after {
+  content: '>';
+  font-size: 130px;
+  color: aqua;
+}
+.box .deatils.data-v-4b799d2f {
+  width: 100%;
+}
+.box .deatils .detailsImg.data-v-4b799d2f {
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  height: 160px;
+  overflow: hidden;
+}
+.box .deatils .detailsTxt.data-v-4b799d2f {
+  width: 70%;
+  padding: 5px 40px;
+  font-size: 14px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.box .more.data-v-4b799d2f {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.box .more .moreItem.data-v-4b799d2f {
+  flex: 50%;
+  height: 160px;
+  text-align: center;
+}
+.box .more .moreItem .moreImg.data-v-4b799d2f {
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+}
+.box .more .moreItem .moreImg .imagee.data-v-4b799d2f {
+  width: 100px;
+  height: 100px;
+}
+.box .more .moreItem .moreImg .moreTxt.data-v-4b799d2f {
+  padding: 1px 2px;
+  font-size: 12px;
+}
+.box .more .moreItem .moreImg .moreTxt .textt.data-v-4b799d2f {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.box .more .moreItem .moreImg .moreTxt .divv.data-v-4b799d2f {
+  text-align: center;
+}
+.box .toCar.data-v-4b799d2f {
+  position: fixed;
+  bottom: 22px;
+  margin: 0 auto;
+  width: 100%;
+}
