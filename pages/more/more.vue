@@ -44,7 +44,7 @@
 	let txtValue = ref('')
 	let categoryDataLeft = ref([])
 	let ids = ref('')
-	let thisIds = ref(1005000)
+	let thisIds = ref()
 	let bannerDatas = ref([])
 	let categotyDataRight = ref([])
 	let newCategory = ref([])
@@ -75,7 +75,8 @@
 		if (newVal) {
 			categotyDataRight.value.map(v => {
 				if (v.id >>> 0 === newVal) {
-					return newCategory.value = v.children
+					newCategory.value = v.children
+					return
 				}
 			})
 			return

@@ -1,0 +1,52 @@
+.box.data-v-b498d100 {
+  width: 100%;
+}
+.box .content .contentItem.data-v-b498d100 {
+  position: relative;
+  margin: 2px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100px;
+  border-radius: 20px;
+  background-color: #efe0e9;
+}
+.box .content .contentItem .checked.data-v-b498d100 {
+  padding-left: 16px;
+  width: 30px;
+}
+.box .content .contentItem .imgs.data-v-b498d100 {
+  width: 100px;
+  height: 100px;
+}
+.box .content .contentItem .imgs image.data-v-b498d100 {
+  width: 100%;
+  height: 100%;
+}
+.box .content .contentItem .dsc.data-v-b498d100 {
+  margin-left: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+}
+.box .content .contentItem .dsc .tt.data-v-b498d100 {
+  flex: 1;
+  line-height: 33px;
+}
+.box .content .contentItem .num.data-v-b498d100 {
+  position: absolute;
+  right: 10px;
+  bottom: 6px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.box .content .contentItem .num .btn.data-v-b498d100 {
+  margin: 0 10px;
+  width: 36px;
+  height: 36px;
+  text-align: center;
+  line-height: 36px;
+  border-radius: 10px;
+}

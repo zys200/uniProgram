@@ -36,6 +36,9 @@
   font-style: 12px;
   color: grey;
 }
+.box .choose.data-v-4b799d2f {
+  padding: 5px 2px;
+}
 .box .choose .fuwu.data-v-4b799d2f {
   display: flex;
   flex-direction: row;
@@ -46,15 +49,20 @@
 }
 .box .choose .fuwu .t1.data-v-4b799d2f {
   width: 100px;
-  padding-left: 20px;
+  text-align: center;
 }
 .box .choose .fuwu .t2.data-v-4b799d2f {
   flex: 1;
+  position: relative;
 }
-.box .choose .fuwu .t2 .t2.data-v-4b799d2f::after {
+.box .choose .fuwu .t2.t2.data-v-4b799d2f::after {
+  position: absolute;
+  top: -2px;
+  right: 10px;
   content: '>';
-  font-size: 130px;
-  color: aqua;
+  font-family: iconfont;
+  font-size: 26px;
+  color: gray;
 }
 .box .deatils.data-v-4b799d2f {
   width: 100%;

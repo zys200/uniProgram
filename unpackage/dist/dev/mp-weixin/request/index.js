@@ -1,17 +1,15 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
-function instance(url, method, data) {
+function instance(url, method, header, data) {
   return new Promise((reslove, rej) => {
     common_vendor.index.request({
       url: "https://pcapi-xiaotuxian-front-devtest.itheima.net" + url,
       timeout: 7e3,
       method,
-      data: {
-        data
-      },
+      data,
       header: {
-        "source-client": "miniapp"
-        // 'User-Agent': 'Apifox/1.0.0 (https://apifox.com)'
+        "source-client": "miniapp",
+        ...header
       },
       success(res) {
         reslove(res.data);

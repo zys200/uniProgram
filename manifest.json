@@ -1,6 +1,6 @@
 {
-	"name": "hber",
-	"appid": "",
+	"name": "Hbuilder-Uni",
+	"appid": "__UNI__542B76C",
 	"description": "",
 	"versionName": "1.0.0",
 	"versionCode": "100",
@@ -43,7 +43,9 @@
 			/* ios打包配置 */
 			"ios": {},
 			/* SDK配置 */
-			"sdkConfigs": {}
+			"sdkConfigs": {
+				"oauth": {}
+			}
 		}
 	},
 	/* 快应用特有相关 */
@@ -52,7 +54,9 @@
 	"mp-weixin": {
 		"appid": "wx95335ee033b300e9",
 		"setting": {
-			"urlCheck": false
+			"urlCheck": false,
+			"minified": false,
+			"es6": true
 		},
 		"usingComponents": true
 	},

@@ -12,7 +12,7 @@ const _sfc_main = {
     let txtValue = common_vendor.ref("");
     let categoryDataLeft = common_vendor.ref([]);
     let ids = common_vendor.ref("");
-    let thisIds = common_vendor.ref(1005e3);
+    let thisIds = common_vendor.ref();
     let bannerDatas = common_vendor.ref([]);
     let categotyDataRight = common_vendor.ref([]);
     let newCategory = common_vendor.ref([]);
@@ -42,7 +42,8 @@ const _sfc_main = {
       if (newVal) {
         categotyDataRight.value.map((v) => {
           if (v.id >>> 0 === newVal) {
-            return newCategory.value = v.children;
+            newCategory.value = v.children;
+            return;
           }
         });
         return;

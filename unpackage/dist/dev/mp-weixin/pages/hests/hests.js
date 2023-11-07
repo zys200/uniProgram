@@ -13,19 +13,21 @@ if (!Math) {
 const _sfc_main = {
   __name: "hests",
   setup(__props) {
-    let types = common_vendor.ref(0);
-    let hestsDataList = common_vendor.ref("");
-    let hestsDataLists = common_vendor.ref([]);
-    let values = common_vendor.ref([]);
-    let current = common_vendor.ref(0);
-    let getGoods = common_vendor.ref([]);
     let urls = [
       { type: "1", title: "特惠推荐", url: "/hot/preference" },
       { type: "2", title: "爆款推荐", url: "/hot/inVogue" },
       { type: "3", title: "一站全买", url: "/hot/oneStop" },
       { type: "4", title: "新鲜好物", url: "/hot/new" }
     ];
-    const onClickItem = function(e) {
+    let types = common_vendor.ref();
+    let hestsBannerList = common_vendor.ref([]);
+    let hestsDataList = common_vendor.ref([]);
+    let values = common_vendor.ref([]);
+    let current = common_vendor.ref(true);
+    let getGoods = common_vendor.ref([]);
+    const onClickItem = async function(e) {
+      var _a;
+      getGoods.value = (_a = hestsDataList.value[0]) == null ? void 0 : _a.goodsItems;
       if (current.value !== e.currentIndex) {
         current.value = e.currentIndex;
       }
@@ -36,28 +38,28 @@ const _sfc_main = {
       urls.map((v) => {
         if (v.type == types.value) {
           request_resInstance.getPreference(v.url).then((res) => {
-            hestsDataList.value = res.result.bannerPicture;
-            hestsDataLists.value = res.result.subTypes.map((v2) => {
+            hestsBannerList.value = res.result.bannerPicture;
+            hestsDataList.value = res.result.subTypes.map((v2) => {
+              values.value.push(v2.title);
               return {
                 id: v2.id,
                 title: v2.title,
                 goodsItems: v2.goodsItems
               };
             });
-            hestsDataLists.value.forEach((v2) => {
-              values.value.push(v2.title);
-            });
           });
           return;
         }
       });
+      onClickItem(0);
     });
     common_vendor.watch(current, (newVal) => {
-      return getGoods.value = hestsDataLists.value[newVal].goodsItems;
-    }, { deep: true });
+      return getGoods.value = hestsDataList.value[newVal].goodsItems;
+    });
     return (_ctx, _cache) => {
+      var _a;
       return {
-        a: common_vendor.unref(hestsDataList),
+        a: common_vendor.unref(hestsBannerList),
         b: common_vendor.o(onClickItem),
         c: common_vendor.p({
           activeColor: "#d9b",
@@ -65,7 +67,7 @@ const _sfc_main = {
           values: common_vendor.unref(values),
           styleType: "text"
         }),
-        d: common_vendor.f(common_vendor.unref(getGoods).items, (item, k0, i0) => {
+        d: common_vendor.f((_a = common_vendor.unref(getGoods)) == null ? void 0 : _a.items, (item, k0, i0) => {
           return {
             a: item.picture,
             b: common_vendor.t(item.desc),
@@ -73,7 +75,7 @@ const _sfc_main = {
             d: item.id
           };
         }),
-        e: common_vendor.unref(current)
+        e: common_vendor.unref(current) === 0 ? true : common_vendor.unref(current)
       };
     };
   }

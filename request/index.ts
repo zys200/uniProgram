@@ -1,15 +1,13 @@
-export default function instance(url : string, method : any, data ?: Object) {
+export default function instance(url : string, method : any, header ?: Object, data ?: Object) {
 	return new Promise((reslove, rej) => {
 		uni.request({
 			url: 'https://pcapi-xiaotuxian-front-devtest.itheima.net' + url,
 			timeout: 7000,
 			method,
-			data: {
-				data
-			},
+			data,
 			header: {
 				'source-client': 'miniapp',
-				// 'User-Agent': 'Apifox/1.0.0 (https://apifox.com)'
+				...header
 			},
 			success(res) {
 				reslove(res.data)

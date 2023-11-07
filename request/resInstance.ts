@@ -21,11 +21,21 @@ export const getPreference = async function (url : string) {
 	return await instance(url, 'GET')
 }
 
-//一下是more
+//details
 export const getCategoryMore = async function () {
 	return await instance('/category/top', 'GET')
 }
 
 export const getDoodsDetails = async function (idd : string) {
 	return await instance(`/goods?id=${idd}`, 'GET')
+}
+
+//加入购物车
+export const toCars = async function (header : Object, datas : Object) {
+	return await instance('/member/cart', 'POST', header, datas)
+}
+
+//login
+export const login = async function (data : Object | string) {
+	return await instance('/login', 'POST', data)
 }

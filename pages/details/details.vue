@@ -16,34 +16,46 @@
 			<text>{{allGoodsDatas.name}}</text>
 			<text class="ttt">{{allGoodsDatas.desc}}</text>
 		</div>
+		<!-- choose模块 -->
 		<div class="choose">
-			<div class="chooseItem">
-				<view>
-					<uni-popup ref="popup" type="bottom" :mask-click="false" background-color="#fff"
-						is-mask-click></uni-popup>
-				</view>
-			</div>
-			<div class="peisong">
-				<uni-popup ref="popup" type="bottom" :mask-click="false" background-color="#fff" is-mask-click>
-
-				</uni-popup>
-			</div>
-			<div class="fuwu" @click="open">
-				<text class="t1">一些配置</text>
-				<uni-popup ref="popup" type="bottom" :mask-click="false" background-color="#fff" is-mask-click
-					class="upp">jjjj
-				</uni-popup>
+			<uni-section title="规格" type="line"></uni-section>
+			<view class="fuwu" @click="open('1')">
+				<text class="t1">选择</text>
+				<text class="t2">res</text>
+			</view>
+			<div class="fuwu" @click="open('song')">
+				<text class="t1">送至</text>
 				<text class="t2">res</text>
 			</div>
+			<div class="fuwu" @click="open('sever')">
+				<text class="t1">服务</text>
+				<text class="t2">res</text>
+			</div>
+			<uni-popup ref="popup" type="bottom" :mask-click="false" background-color="#fff" is-mask-click>
+				<div v-if="name === '1' "> <text>名称</text>:<text>haha</text></div>
+				<div v-if="name==='song'"> ddddddddddddd </div>
+				<div v-if="name==='sever'">
+					<view class="title">服务说明</view>
+					<!-- 内容 -->
+					<view class="content">
+						<view class="item">
+							<view class="dt">无忧退货</view>
+							<view class="dd">
+								自收到商品之日起30天内，可在线申请无忧退货服务（食品等特殊商品除外）
+							</view>
+						</view>
+					</view>
+				</div>
+			</uni-popup>
 		</div>
-		<div class="deatils">
+		<div class=" deatils">
 			<uni-section title="详情" type="line"></uni-section>
 			<div>
-				<div class="detailsImg" v-for="item in allGoodsDatas.details.pictures.slice(0,3)" :key="item.index">
+				<div class="detailsImg" v-for="item in allGoodsDatas.details?.pictures.slice(0,3)" :key="item.index">
 					<image :src="item"></image>
 				</div>
 			</div>
-			<div class="detailsTxt" v-for="item in allGoodsDatas.details.properties" :key="item.index">
+			<div class="detailsTxt" v-for="item in allGoodsDatas.details?.properties" :key="item.index">
 				<div>
 					<text>{{item.name}}</text>:<text>{{item.value}}</text>
 				</div>
@@ -72,10 +84,14 @@
 
 <script setup>
 	import { ref, onMounted } from 'vue'
-	import { getDoodsDetails } from '../../request/resInstance.ts'
+	import { getDoodsDetails, toCars } from '../../request/resInstance.ts'
+	import { myStore } from '../../store/index.js'
 
+	let goodsId = ref('')
+	let count = ref(0)
 	let allGoodsDatas = ref({})
 	let popup = ref(null)
+	let name = ref('')
 	let options = ref([{
 		icon: 'chat',
 		text: '客服'
@@ -101,27 +117,48 @@
 			color: '#fff'
 		}
 	])
+	let store = myStore()
+	let toCarType = ref('')
+	let tokens = ref('')
 
 	const getAllGoodsDatas = function() {
 		let instance = getCurrentPages()
-		getDoodsDetails(instance[1].options.id).then(res => {
+		goodsId.value = instance[1].options.id
+		console.log(goodsId.value);
+		getDoodsDetails(goodsId.value).then(res => {
 			allGoodsDatas.value = res.result
-			// console.log(res.result.specs);
 		})
 	}
-	const open = function(e) {
+	const open = function(val) {
+		name.value = val
 		popup.value.open()
 	}
 	//底部栏
 	const onClick = function(e) {
 		console.log(e);
 	}
+	//加入购物车或购买
 	const buttonClick = function(e) {
-		console.log(e)
-		// options[2].value.info++
+		toCarType.value = e.content.text
+		// options[2].value.info++ 
+		let header = ref({
+			'Authorization': `${store.token}`
+		})
+		let datas = JSON.stringify({
+			kuId: goodsId.value,
+			count: 1
+		})
+		if (toCarType.value === '加入购物车') {
+			toCars(header.value, datas).then(res => {
+				console.log(res);
+			})
+		} else {
+			console.log('购买');
+		}
 	}
 	onMounted(() => {
 		getAllGoodsDatas()
+		store.getToken()
 	})
 </script>
 
@@ -182,9 +219,7 @@
 		}
 
 		.choose {
-			.chooseItem {}
-
-			.peisong {}
+			padding: 5px 2px;
 
 			.fuwu {
 				display: flex;
@@ -196,16 +231,21 @@
 
 				.t1 {
 					width: 100px;
-					padding-left: 20px;
+					text-align: center;
 				}
 
 				.t2 {
 					flex: 1;
+					position: relative;
 
-					& .t2::after {
+					&.t2::after {
+						position: absolute;
+						top: -2px;
+						right: 10px;
 						content: '>';
-						font-size: 130px;
-						color: aqua;
+						font-family: iconfont;
+						font-size: 26px;
+						color: gray;
 					}
 				}
 			}
