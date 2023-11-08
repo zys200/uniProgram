@@ -39,6 +39,63 @@
 .box .choose.data-v-4b799d2f {
   padding: 5px 2px;
 }
+.box .choose .one.data-v-4b799d2f {
+  display: flex;
+  flex-direction: column;
+}
+.box .choose .one .top.data-v-4b799d2f {
+  display: flex;
+  align-items: center;
+  height: 100px;
+}
+.box .choose .one .top .imgss.data-v-4b799d2f {
+  width: 80px;
+  height: 80px;
+}
+.box .choose .one .top .right.data-v-4b799d2f {
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+}
+.box .choose .one .chooses.data-v-4b799d2f {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 10px;
+}
+.box .choose .one .chooses button.data-v-4b799d2f {
+  display: inline-block;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 12px;
+}
+.box .choose .one .num.data-v-4b799d2f {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transform: translateX(160%);
+  width: 150px;
+}
+.box .choose .one .num .btn.data-v-4b799d2f {
+  margin: 0 10px;
+  width: 36px;
+  height: 36px;
+  text-align: center;
+  line-height: 36px;
+  border-radius: 10px;
+}
+.box .choose .one .buttoms.data-v-4b799d2f {
+  position: relative;
+}
+.box .choose .one .buttoms .kongbai.data-v-4b799d2f {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  width: 110px;
+  height: 50px;
+  background-color: #fff;
+}
 .box .choose .fuwu.data-v-4b799d2f {
   display: flex;
   flex-direction: row;
@@ -78,9 +135,9 @@
   width: 70%;
   padding: 5px 40px;
   font-size: 14px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .box .more.data-v-4b799d2f {
   display: flex;
@@ -106,9 +163,9 @@
   font-size: 12px;
 }
 .box .more .moreItem .moreImg .moreTxt .textt.data-v-4b799d2f {
-  white-space: nowrap;
-  text-overflow: ellipsis;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .box .more .moreItem .moreImg .moreTxt .divv.data-v-4b799d2f {
   text-align: center;

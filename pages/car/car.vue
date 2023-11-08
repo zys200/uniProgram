@@ -44,6 +44,15 @@
 </template>
 
 <script setup>
+	import { ref } from 'vue';
+	import PubSub from 'pubsub-js'
+
+	let getToCar = ref([])
+
+	PubSub.subscribe('toCar', (name, data) => {
+		console.log(name, data);
+		getToCar.value = data
+	})
 </script>
 
 <style scoped lang="less">

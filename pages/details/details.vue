@@ -21,7 +21,7 @@
 			<uni-section title="规格" type="line"></uni-section>
 			<view class="fuwu" @click="open('1')">
 				<text class="t1">选择</text>
-				<text class="t2">res</text>
+				<text class="t2">{{chooses}}</text>
 			</view>
 			<div class="fuwu" @click="open('song')">
 				<text class="t1">送至</text>
@@ -32,8 +32,39 @@
 				<text class="t2">res</text>
 			</div>
 			<uni-popup ref="popup" type="bottom" :mask-click="false" background-color="#fff" is-mask-click>
-				<div v-if="name === '1' "> <text>名称</text>:<text>haha</text></div>
-				<div v-if="name==='song'"> ddddddddddddd </div>
+				<div v-if="name === '1' ">
+					<div class="one">
+						<div class="top">
+							<image :src="goods.picture" class="imgss"></image>
+							<div class="right">
+								<text>￥：{{goods.price * count }}</text>
+								<text>库存：{{goods.inventory}}</text>
+								<text>{{dynamicGoods[0].name1}} {{dynamicGoods[1].name2}}</text>
+							</div>
+						</div>
+						<!-- tow hours -->
+						<div class="chooses">
+							<div v-for="(item,index) in goods.specs" :key="item.index">
+								<h5>{{item.name}}</h5>
+								<button v-for="(i,d) in goodsCategoty[index].valuse" :key="i.d" :data-index="index"
+									:data-index2="d" :id="goodsCategoty[index].id" @click="realyGoods">
+									<text>{{i.name}}</text>
+								</button>
+							</div>
+						</div>
+						<div class="num">
+							<button class="btn" @click="toComputed('j')">-</button>
+							<text>{{count}}</text>
+							<button class="btn" @click="toComputed('ad')">+</button>
+						</div>
+						<div class="buttoms">
+							<div class="kongbai"></div>
+							<uni-goods-nav class="btnItem" :fill="true" :button-group="buttonGroup"
+								@buttonClick="buttonClick" />
+						</div>
+					</div>
+				</div>
+				<div v-if="name==='song'">ddddddddddddd</div>
 				<div v-if="name==='sever'">
 					<view class="title">服务说明</view>
 					<!-- 内容 -->
@@ -86,9 +117,9 @@
 	import { ref, onMounted } from 'vue'
 	import { getDoodsDetails, toCars } from '../../request/resInstance.ts'
 	import { myStore } from '../../store/index.js'
+	import PubSub from 'pubsub-js'
 
 	let goodsId = ref('')
-	let count = ref(0)
 	let allGoodsDatas = ref({})
 	let popup = ref(null)
 	let name = ref('')
@@ -120,17 +151,121 @@
 	let store = myStore()
 	let toCarType = ref('')
 	let tokens = ref('')
+	let chooses = ref('')
+	let names = ref([])
+	let goods = ref({})
+	let goodsSpecs = ref([])
+	let goodsSkus = ref([])
+	let goodsCategoty = ref([])
+	let dynamicGoods = ref([
+		{ name1: '', pic: '' },
+		{ name2: '' }
+	])
+	let count = ref(0)
+	let realyId = ref('')
 
 	const getAllGoodsDatas = function() {
 		let instance = getCurrentPages()
 		goodsId.value = instance[1].options.id
-		console.log(goodsId.value);
 		getDoodsDetails(goodsId.value).then(res => {
 			allGoodsDatas.value = res.result
 		})
 	}
+	const findGoods = function() {
+		// goodsSkus.value[0].specs.forEach(v => {
+		// 	names.value.push(v.name)
+		// })
+		goodsSpecs.value.forEach(v => {
+			goodsCategoty.value.push({
+				id: v.id,
+				name: v.name,
+				valuse: v.values
+			})
+		})
+		// console.log(goodsCategoty.value, 'cate');
+	}
+	const getGood = function() {
+		getDoodsDetails(goodsId.value).then(res => {
+			goodsSkus.value = res.result.skus
+			// console.log(goodsSkus.value, 'skus', 'goods', '首次渲染的id');
+			goods.value = res.result.skus[0]
+			goodsSpecs.value = res.result.specs
+			// console.log(goodsSpecs.value, 'specs', '选中，图片');
+			findGoods()
+		})
+	}
+	const realyGoods = function(e) {
+		let id = e.target.id
+		let ix = e.currentTarget.dataset.index >>> 0
+		let i = e.currentTarget.dataset.index2 >>> 0
+		if (ix == 0) {
+			dynamicGoods.value[0].name1 = goodsSpecs.value[0].values[i].name
+			dynamicGoods.value[0].pic = goodsSpecs.value[0].values[i].picture
+		} else if (ix == 1) {
+			dynamicGoods.value[1].name2 = goodsSpecs.value[1].values[i].name
+		}
+	}
+	const toComputed = function(c) {
+		if (c === 'ad') {
+			count.value += 1
+			return
+		} else if (c === 'j' && count.value !== 0) {
+			count.value -= 1
+			return
+		} else {
+			count.value = 0
+			return
+		}
+	}
+	const realyID = function() {
+		if (dynamicGoods.value[0].name1 !== '') {
+			goodsSkus.value.forEach(v => {
+				// console.log(v.specs[0].valueName);
+				// console.log(dynamicGoods.value[0].name1);
+				console.log(dynamicGoods.value);
+				if (v.specs[0].valueName === dynamicGoods.value[0].name1 && count.value !== 0) {
+					realyId.value = v.id
+					return
+				} else {
+					uni.showToast({
+						icon: 'error',
+						title: '失败了！！'
+					})
+					return
+				}
+			})
+		} else {
+			uni.showToast({
+				icon: 'error',
+				title: '请选择商品!'
+			})
+		}
+	}
+	const realyIDGTP = function() {
+		if (dynamicGoods.value[0].name1 !== '') {
+			if (goodsSkus.value.some(v => v.specs[0].valueName === dynamicGoods.value[0].name1 && count.value !== 0)) {
+				const matchedSku = goodsSkus.value.find(v => v.specs[0].valueName === dynamicGoods.value[0].name1 &&
+					count.value !== 0);
+				realyId.value = matchedSku.id;
+				return
+			} else {
+				uni.showToast({
+					icon: 'error',
+					title: '失败了！！'
+				});
+				return
+			}
+		} else {
+			uni.showToast({
+				icon: 'error',
+				title: '请选择商品!'
+			});
+			return
+		}
+	}
 	const open = function(val) {
 		name.value = val
+		getGood()
 		popup.value.open()
 	}
 	//底部栏
@@ -139,21 +274,35 @@
 	}
 	//加入购物车或购买
 	const buttonClick = function(e) {
+		// if (realyId.value == '') {
+		// 	console.log(1);
+		// 	return
+		// }
+		realyID()
+		// realyIDGTP()
 		toCarType.value = e.content.text
 		// options[2].value.info++ 
 		let header = ref({
 			'Authorization': `${store.token}`
 		})
 		let datas = JSON.stringify({
-			kuId: goodsId.value,
-			count: 1
+			skuId: realyId.value,
+			count: count.value
 		})
 		if (toCarType.value === '加入购物车') {
 			toCars(header.value, datas).then(res => {
-				console.log(res);
+				console.log(res.result);
+				PubSub.publish('toCar', res.result)
+				uni.showToast({
+					icon: 'success',
+					title: '好的,已添加到购物车'
+				})
 			})
 		} else {
 			console.log('购买');
+		}
+		while (popup.value.close()) {
+			dynamicGoods.value = [{ name1: '', pic: '' }, { name2: '' }]
 		}
 	}
 	onMounted(() => {
@@ -166,11 +315,13 @@
 	@width: 100%;
 	@bgc: #d9b;
 
-	// @dhtxt() {
-	// 	white-space: nowrap;
-	// 	text-overflow: ellipsis;
-	// 	overflow: hidden;
-	// }
+	.textd() {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	;
 
 	.box {
 		width: @width;
@@ -221,6 +372,73 @@
 		.choose {
 			padding: 5px 2px;
 
+			.one {
+				display: flex;
+				flex-direction: column;
+
+				.top {
+					display: flex;
+					align-items: center;
+					height: 100px;
+
+					.imgss {
+						width: 80px;
+						height: 80px;
+					}
+
+					.right {
+						display: flex;
+						flex-direction: column;
+						margin-left: 30px;
+					}
+				}
+
+				.chooses {
+					display: flex;
+					flex-direction: column;
+					padding: 5px 10px;
+
+					button {
+						display: inline-block;
+						height: 30px;
+						text-align: center;
+						line-height: 30px;
+						font-size: 12px;
+					}
+				}
+
+				.num {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					transform: translateX(160%);
+					width: 150px;
+
+					.btn {
+						margin: 0 10px;
+						width: 36px;
+						height: 36px;
+						text-align: center;
+						line-height: 36px;
+						border-radius: 10px;
+					}
+				}
+
+				.buttoms {
+					position: relative;
+
+					.kongbai {
+						position: absolute;
+						top: 0;
+						left: 0;
+						z-index: 10000;
+						width: 110px;
+						height: 50px;
+						background-color: #fff;
+					}
+				}
+			}
+
 			.fuwu {
 				display: flex;
 				flex-direction: row;
@@ -266,9 +484,7 @@
 				width: 70%;
 				padding: 5px 40px;
 				font-size: 14px;
-				white-space: nowrap;
-				text-overflow: ellipsis;
-				overflow: hidden;
+				.textd()
 			}
 		}
 
@@ -297,10 +513,7 @@
 						font-size: 12px;
 
 						.textt {
-							white-space: nowrap;
-							text-overflow: ellipsis;
-							overflow: hidden;
-							// @dhtxt()
+							.textd()
 						}
 
 						.divv {

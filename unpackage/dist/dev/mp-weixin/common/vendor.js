@@ -7904,22 +7904,22 @@ var pubsub = {
 };
 (function(module2, exports2) {
   (function(root, factory) {
-    var PubSub = {};
+    var PubSub2 = {};
     if (root.PubSub) {
-      PubSub = root.PubSub;
+      PubSub2 = root.PubSub;
       console.warn("PubSub already loaded, using existing version");
     } else {
-      root.PubSub = PubSub;
-      factory(PubSub);
+      root.PubSub = PubSub2;
+      factory(PubSub2);
     }
     {
       if (module2 !== void 0 && module2.exports) {
-        exports2 = module2.exports = PubSub;
+        exports2 = module2.exports = PubSub2;
       }
-      exports2.PubSub = PubSub;
-      module2.exports = exports2 = PubSub;
+      exports2.PubSub = PubSub2;
+      module2.exports = exports2 = PubSub2;
     }
-  })(typeof window === "object" && window || commonjsGlobal, function(PubSub) {
+  })(typeof window === "object" && window || commonjsGlobal, function(PubSub2) {
     var messages = {}, lastUid = -1, ALL_SUBSCRIBING_MSG = "*";
     function hasKeys(obj) {
       var key;
@@ -7994,13 +7994,13 @@ var pubsub = {
       }
       return true;
     }
-    PubSub.publish = function(message, data) {
-      return publish(message, data, false, PubSub.immediateExceptions);
+    PubSub2.publish = function(message, data) {
+      return publish(message, data, false, PubSub2.immediateExceptions);
     };
-    PubSub.publishSync = function(message, data) {
-      return publish(message, data, true, PubSub.immediateExceptions);
+    PubSub2.publishSync = function(message, data) {
+      return publish(message, data, true, PubSub2.immediateExceptions);
     };
-    PubSub.subscribe = function(message, func) {
+    PubSub2.subscribe = function(message, func) {
       if (typeof func !== "function") {
         return false;
       }
@@ -8012,20 +8012,20 @@ var pubsub = {
       messages[message][token] = func;
       return token;
     };
-    PubSub.subscribeAll = function(func) {
-      return PubSub.subscribe(ALL_SUBSCRIBING_MSG, func);
+    PubSub2.subscribeAll = function(func) {
+      return PubSub2.subscribe(ALL_SUBSCRIBING_MSG, func);
     };
-    PubSub.subscribeOnce = function(message, func) {
-      var token = PubSub.subscribe(message, function() {
-        PubSub.unsubscribe(token);
+    PubSub2.subscribeOnce = function(message, func) {
+      var token = PubSub2.subscribe(message, function() {
+        PubSub2.unsubscribe(token);
         func.apply(this, arguments);
       });
-      return PubSub;
+      return PubSub2;
     };
-    PubSub.clearAllSubscriptions = function clearAllSubscriptions() {
+    PubSub2.clearAllSubscriptions = function clearAllSubscriptions() {
       messages = {};
     };
-    PubSub.clearSubscriptions = function clearSubscriptions(topic) {
+    PubSub2.clearSubscriptions = function clearSubscriptions(topic) {
       var m;
       for (m in messages) {
         if (Object.prototype.hasOwnProperty.call(messages, m) && m.indexOf(topic) === 0) {
@@ -8033,7 +8033,7 @@ var pubsub = {
         }
       }
     };
-    PubSub.countSubscriptions = function countSubscriptions(topic) {
+    PubSub2.countSubscriptions = function countSubscriptions(topic) {
       var m;
       var token;
       var count = 0;
@@ -8047,7 +8047,7 @@ var pubsub = {
       }
       return count;
     };
-    PubSub.getSubscriptions = function getSubscriptions(topic) {
+    PubSub2.getSubscriptions = function getSubscriptions(topic) {
       var m;
       var list = [];
       for (m in messages) {
@@ -8057,7 +8057,7 @@ var pubsub = {
       }
       return list;
     };
-    PubSub.unsubscribe = function(value) {
+    PubSub2.unsubscribe = function(value) {
       var descendantTopicExists = function(topic) {
         var m2;
         for (m2 in messages) {
@@ -8068,7 +8068,7 @@ var pubsub = {
         return false;
       }, isTopic = typeof value === "string" && (Object.prototype.hasOwnProperty.call(messages, value) || descendantTopicExists(value)), isToken = !isTopic && typeof value === "string", isFunction2 = typeof value === "function", result = false, m, message, t2;
       if (isTopic) {
-        PubSub.clearSubscriptions(value);
+        PubSub2.clearSubscriptions(value);
         return;
       }
       for (m in messages) {
@@ -8093,7 +8093,9 @@ var pubsub = {
     };
   });
 })(pubsub, pubsubExports);
+const PubSub = pubsubExports;
 exports.Pinia = Pinia;
+exports.PubSub = PubSub;
 exports._export_sfc = _export_sfc;
 exports.createPinia = createPinia;
 exports.createSSRApp = createSSRApp;
