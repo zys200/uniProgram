@@ -30,12 +30,16 @@ export const getDoodsDetails = async function (idd : string) {
 	return await instance(`/goods?id=${idd}`, 'GET')
 }
 
+//login
+export const login = async function (data : Object | string) {
+	return await instance('/login', 'POST', data)
+}
+
 //加入购物车
 export const toCars = async function (header : Object, datas : Object) {
 	return await instance('/member/cart', 'POST', header, datas)
 }
 
-//login
-export const login = async function (data : Object | string) {
-	return await instance('/login', 'POST', data)
+export const changeCars = async function (skuId : String, header : Object, datas : Object) {
+	return await instance(`/member/cart/?skuId=${skuId}`, 'PUT', header, datas)
 }

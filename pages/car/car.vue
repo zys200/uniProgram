@@ -1,67 +1,94 @@
 <template>
 	<div class="box">
-		<div class="top">
-		</div>
 		<div class="content">
-			<div class="contentItem">
-				<div class="checked">
-					<checkbox value="checkbox1" />
+			<checkbox-group @change="checkboxChange">
+				<div class="cd">
+					<checkbox :value="cheakedAll" @change="cheakAll"><text>全部都要买</text></checkbox>
 				</div>
-				<div class="imgs">
-					<image src="../../static/iconfonts/gouwu1.png"></image>
-				</div>
-				<div class="dsc">
-					<text>1</text>
-					<text>2</text>
-					<text>3</text>
-				</div>
-				<div class="num">
-					<button class="btn">-</button>
-					<text>num</text>
-					<button class="btn">+</button>
-				</div>
+				<label>
+					<div class="contentItem" v-for="item in getToCar" :key="item.id" :id="item.id" :data-ids="item.id">
+						<div class="checked">
+							<checkbox :value="item.selected" :checked="item.selected" />
+						</div>
+						<div class="imgs">
+							<image :src="item.picture"></image>
+						</div>
+						<div class="dsc">
+							<h5>{{item.name}}</h5>
+							<text>{{item.specs[0].valueName}}</text>
+							<text>￥：{{item.nowPrice * item.count}}</text>
+						</div>
+						<div class="num">
+							<button class="btn" @click="toChangeCount(item.id,'-')">-</button>
+							<text>{{item.count}}</text>
+							<button class="btn" @click="toChangeCount(item.id,'+')">+</button>
+						</div>
+					</div>
+				</label>
+			</checkbox-group>
+		</div>
+		<div class="res">
+			<div class="kongbai">
+				<text>总价：Null</text>
 			</div>
-			<div class="contentItem">
-				<div class="checked">
-					<checkbox value="checkbox1" />
-				</div>
-				<div class="imgs">
-					<image src="../../static/iconfonts/gouwu1.png"></image>
-				</div>
-				<div class="dsc">
-					<text class="tt">111111111111</text>
-					<text class="tt">222222222222</text>
-					<text class="tt">33333</text>
-				</div>
-				<div class="num">
-					<button class="btn">-</button>
-					<text>num</text>
-					<button class="btn">+</button>
-				</div>
-			</div>
+			<uni-goods-nav :fill="true" :button-group="customButtonGroup1" @buttonClick="buttonClick" />
 		</div>
 	</div>
 </template>
 
 <script setup>
-	import { ref } from 'vue';
-	import PubSub from 'pubsub-js'
+	import { ref, onMounted } from 'vue'
+	import { myStore } from '../../store/index.js'
+	import { changeCars } from '../../request/resInstance'
 
+	let store = myStore()
 	let getToCar = ref([])
+	let nowId = ref('')
+	let checkeds = ref([])
+	let cheakedAll = ref(true)
+	let customButtonGroup1 = [{
+		text: '立即购买',
+		backgroundColor: 'linear-gradient(90deg, #FE6035, #EF1224)',
+		color: '#fff'
+	}]
 
-	PubSub.subscribe('toCar', (name, data) => {
-		console.log(name, data);
-		getToCar.value = data
+	onMounted(() => {
+		getToCar.value = store.toCarGoods
+		console.log(store.toCarGoods);
 	})
+	//选择框
+	const cheakAll = function(e) {
+		cheakedAll.value = !cheakedAll.value
+	}
+	const checkboxChange = function(e) {
+		console.log(e);
+
+	}
+	const changeGoods = function() {
+		//修改购物车数量等
+	}
+	const toChangeCount = function(ids, c) {
+		// console.log(c);
+		// let res = getToCar.value.find(v => v.id === ids)
+		// store.addGoods(res)
+	}
+	//结算
+	const buttonClick = function() {
+		console.log(1);
+	}
 </script>
 
 <style scoped lang="less">
 	.box {
 		width: 100%;
 
-		.top {}
-
 		.content {
+			.cd {
+				padding-left: 20px;
+				height: 30px;
+				line-height: 30px;
+				background-color: #e8e9e9;
+			}
 
 			.contentItem {
 				position: relative;
@@ -118,6 +145,24 @@
 						border-radius: 10px;
 					}
 				}
+			}
+		}
+
+		.res {
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+			height: 50px;
+
+			.kongbai {
+				position: absolute;
+				bottom: 0;
+				z-index: 1000;
+				padding: 2px;
+				width: 100px;
+				height: 50px;
+				background-color: #ffffff;
+				line-height: 50px;
 			}
 		}
 	}

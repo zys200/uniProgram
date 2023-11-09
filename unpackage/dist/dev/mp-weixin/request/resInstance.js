@@ -21,11 +21,11 @@ const getCategoryMore = async function() {
 const getDoodsDetails = async function(idd) {
   return await request_index.instance(`/goods?id=${idd}`, "GET");
 };
-const toCars = async function(header, datas) {
-  return await request_index.instance("/member/cart", "POST", header, datas);
-};
 const login = async function(data) {
   return await request_index.instance("/login", "POST", data);
+};
+const toCars = async function(header, datas) {
+  return await request_index.instance("/member/cart", "POST", header, datas);
 };
 exports.getBanner = getBanner;
 exports.getCategory = getCategory;

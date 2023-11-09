@@ -117,7 +117,6 @@
 	import { ref, onMounted } from 'vue'
 	import { getDoodsDetails, toCars } from '../../request/resInstance.ts'
 	import { myStore } from '../../store/index.js'
-	import PubSub from 'pubsub-js'
 
 	let goodsId = ref('')
 	let allGoodsDatas = ref({})
@@ -222,7 +221,7 @@
 			goodsSkus.value.forEach(v => {
 				// console.log(v.specs[0].valueName);
 				// console.log(dynamicGoods.value[0].name1);
-				console.log(dynamicGoods.value);
+				// console.log(dynamicGoods.value);
 				if (v.specs[0].valueName === dynamicGoods.value[0].name1 && count.value !== 0) {
 					realyId.value = v.id
 					return
@@ -234,33 +233,12 @@
 					return
 				}
 			})
+			return
 		} else {
 			uni.showToast({
 				icon: 'error',
 				title: '请选择商品!'
 			})
-		}
-	}
-	const realyIDGTP = function() {
-		if (dynamicGoods.value[0].name1 !== '') {
-			if (goodsSkus.value.some(v => v.specs[0].valueName === dynamicGoods.value[0].name1 && count.value !== 0)) {
-				const matchedSku = goodsSkus.value.find(v => v.specs[0].valueName === dynamicGoods.value[0].name1 &&
-					count.value !== 0);
-				realyId.value = matchedSku.id;
-				return
-			} else {
-				uni.showToast({
-					icon: 'error',
-					title: '失败了！！'
-				});
-				return
-			}
-		} else {
-			uni.showToast({
-				icon: 'error',
-				title: '请选择商品!'
-			});
-			return
 		}
 	}
 	const open = function(val) {
@@ -274,12 +252,15 @@
 	}
 	//加入购物车或购买
 	const buttonClick = function(e) {
-		// if (realyId.value == '') {
-		// 	console.log(1);
-		// 	return
-		// }
 		realyID()
-		// realyIDGTP()
+		if (realyId.value === '') {
+			// uni.showToast({
+			// 	icon: 'error',
+			// 	title: '请选择商品!'
+			// })
+			console.log(1);
+			return
+		}
 		toCarType.value = e.content.text
 		// options[2].value.info++ 
 		let header = ref({
@@ -291,8 +272,10 @@
 		})
 		if (toCarType.value === '加入购物车') {
 			toCars(header.value, datas).then(res => {
-				console.log(res.result);
-				PubSub.publish('toCar', res.result)
+				// console.log(res.result)
+				// res.reault.count = count.value
+				// console.log(res.result.id);
+				store.addGoods(res.result)
 				uni.showToast({
 					icon: 'success',
 					title: '好的,已添加到购物车'
@@ -301,9 +284,11 @@
 		} else {
 			console.log('购买');
 		}
-		while (popup.value.close()) {
-			dynamicGoods.value = [{ name1: '', pic: '' }, { name2: '' }]
-		}
+		realyId.value = ''
+		count.value = 0
+		// while (popup.value.close()) {
+		// 	dynamicGoods.value = [{ name1: '', pic: '' }, { name2: '' }]
+		// }
 	}
 	onMounted(() => {
 		getAllGoodsDatas()
@@ -320,8 +305,6 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
-
-	;
 
 	.box {
 		width: @width;

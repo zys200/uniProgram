@@ -1,8 +1,10 @@
-import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { defineStore } from 'pinia'
+import { changeCars } from '../request/resInstance'
 
 export const myStore = defineStore('main', () => {
 	let token = ref('')
+	let toCarGoods = ref([])
 
 	const getToken = function() {
 		uni.getStorage({
@@ -12,9 +14,19 @@ export const myStore = defineStore('main', () => {
 			}
 		})
 	}
+	const addGoods = function(val) {
+		const index = toCarGoods.value.findIndex((v) => v.id === val.id);
+		if (index !== -1) {
+			toCarGoods.value[index] = val;
+		} else {
+			toCarGoods.value.push(val);
+		}
+	}
 
 	return {
 		token,
-		getToken
+		toCarGoods,
+		getToken,
+		addGoods
 	}
 })

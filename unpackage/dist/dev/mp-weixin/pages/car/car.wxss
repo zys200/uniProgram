@@ -1,6 +1,12 @@
 .box.data-v-b498d100 {
   width: 100%;
 }
+.box .content .cd.data-v-b498d100 {
+  padding-left: 20px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #e8e9e9;
+}
 .box .content .contentItem.data-v-b498d100 {
   position: relative;
   margin: 2px;
@@ -49,4 +55,20 @@
   text-align: center;
   line-height: 36px;
   border-radius: 10px;
+}
+.box .res.data-v-b498d100 {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+}
+.box .res .kongbai.data-v-b498d100 {
+  position: absolute;
+  bottom: 0;
+  z-index: 1000;
+  padding: 2px;
+  width: 100px;
+  height: 50px;
+  background-color: #ffffff;
+  line-height: 50px;
 }

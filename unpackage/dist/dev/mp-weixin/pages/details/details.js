@@ -113,7 +113,6 @@ const _sfc_main = {
     const realyID = function() {
       if (dynamicGoods.value[0].name1 !== "") {
         goodsSkus.value.forEach((v) => {
-          console.log(dynamicGoods.value);
           if (v.specs[0].valueName === dynamicGoods.value[0].name1 && count.value !== 0) {
             realyId.value = v.id;
             return;
@@ -125,6 +124,7 @@ const _sfc_main = {
             return;
           }
         });
+        return;
       } else {
         common_vendor.index.showToast({
           icon: "error",
@@ -142,6 +142,10 @@ const _sfc_main = {
     };
     const buttonClick = function(e) {
       realyID();
+      if (realyId.value === "") {
+        console.log(1);
+        return;
+      }
       toCarType.value = e.content.text;
       let header = common_vendor.ref({
         "Authorization": `${store.token}`
@@ -152,8 +156,7 @@ const _sfc_main = {
       });
       if (toCarType.value === "加入购物车") {
         request_resInstance.toCars(header.value, datas).then((res) => {
-          console.log(res.result);
-          common_vendor.PubSub.publish("toCar", res.result);
+          store.addGoods(res.result);
           common_vendor.index.showToast({
             icon: "success",
             title: "好的,已添加到购物车"
@@ -162,9 +165,8 @@ const _sfc_main = {
       } else {
         console.log("购买");
       }
-      while (popup.value.close()) {
-        dynamicGoods.value = [{ name1: "", pic: "" }, { name2: "" }];
-      }
+      realyId.value = "";
+      count.value = 0;
     };
     common_vendor.onMounted(() => {
       getAllGoodsDatas();
