@@ -11,24 +11,13 @@ if (!Math) {
   "./pages/login/login.js";
   "./pages/order/index.js";
 }
-const _sfc_main = {
-  onLaunch: function() {
-    console.log("App Launch");
-  },
-  onShow: function() {
-    console.log("App Show");
-  },
-  onHide: function() {
-    console.log("App Hide");
-  }
-};
+const _sfc_main = {};
 const App = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "C:/Users/张东宇/Desktop/Hbuilder/App.vue"]]);
 function createApp() {
   const app = common_vendor.createSSRApp(App);
-  app.use(common_vendor.createPinia());
+  app.use(common_vendor.createPinia()).use(common_vendor.uviewPlus);
   return {
-    app,
-    Pinia: common_vendor.Pinia
+    app
   };
 }
 createApp().app.mount("#app");
