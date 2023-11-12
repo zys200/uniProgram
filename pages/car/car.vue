@@ -79,7 +79,21 @@
 	}
 	//结算
 	const buttonClick = function() {
-		console.log(1);
+		if (checkeds.value.length) {
+			uni.navigateTo({
+				url: '/pages/order/index',
+				success(qu) {
+					qu.eventChannel.emit('goodes', {
+						data: Object.entries(checkeds.value).flat()
+					})
+				}
+			})
+		} else {
+			uni.showToast({
+				icon: 'fail',
+				title: '请选择商品'
+			})
+		}
 	}
 </script>
 

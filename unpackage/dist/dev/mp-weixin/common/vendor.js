@@ -11364,6 +11364,7 @@ exports.index = index$1;
 exports.initVueI18n = initVueI18n;
 exports.isRef = isRef;
 exports.n = n;
+exports.nextTick$1 = nextTick$1;
 exports.o = o;
 exports.onMounted = onMounted;
 exports.p = p;

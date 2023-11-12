@@ -48,7 +48,21 @@ const _sfc_main = {
     const toChangeCount = function(ids, c) {
     };
     const buttonClick = function() {
-      console.log(1);
+      if (checkeds.value.length) {
+        common_vendor.index.navigateTo({
+          url: "/pages/order/index",
+          success(qu) {
+            qu.eventChannel.emit("goodes", {
+              data: Object.entries(checkeds.value).flat()
+            });
+          }
+        });
+      } else {
+        common_vendor.index.showToast({
+          icon: "fail",
+          title: "请选择商品"
+        });
+      }
     };
     return (_ctx, _cache) => {
       return {

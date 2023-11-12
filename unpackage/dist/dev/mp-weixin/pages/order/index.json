@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText": "订单",
-  "usingComponents": {}
+  "usingComponents": {
+    "u-action-sheet": "../../uni_modules/uview-plus/components/u-action-sheet/u-action-sheet",
+    "u-button": "../../uni_modules/uview-plus/components/u-button/u-button"
+  }
 }

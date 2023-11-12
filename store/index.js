@@ -16,7 +16,7 @@ export const myStore = defineStore('main', () => {
 		})
 	}
 	const addGoods = function(val) {
-		const index = toCarGoods.value.findIndex((v) => v.id === val.id);
+		const index = toCarGoods.value.findIndex(v => v.id === val.id);
 		if (index !== -1) {
 			toCarGoods.value[index] = val;
 		} else {
