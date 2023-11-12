@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/address/index",
     "pages/index/index",
     "pages/more/more",
     "pages/car/car",

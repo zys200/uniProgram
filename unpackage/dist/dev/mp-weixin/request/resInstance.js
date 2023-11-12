@@ -21,8 +21,11 @@ const getCategoryMore = async function() {
 const getDoodsDetails = async function(idd) {
   return await request_index.instance(`/goods?id=${idd}`, "GET");
 };
-const login = async function(data) {
-  return await request_index.instance("/login", "POST", data);
+const login = async function(datas) {
+  return await request_index.instance("/login", "POST", {}, datas);
+};
+const reLogin = async function(header, datas) {
+  return await request_index.instance("/login/refresh", "PUT", header, datas);
 };
 const toCars = async function(header, datas) {
   return await request_index.instance("/member/cart", "POST", header, datas);
@@ -35,4 +38,5 @@ exports.getHeat = getHeat;
 exports.getPreference = getPreference;
 exports.getRecommed = getRecommed;
 exports.login = login;
+exports.reLogin = reLogin;
 exports.toCars = toCars;

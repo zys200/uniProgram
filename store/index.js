@@ -4,6 +4,7 @@ import { changeCars } from '../request/resInstance'
 
 export const myStore = defineStore('main', () => {
 	let token = ref('')
+	let reID = ref('')
 	let toCarGoods = ref([])
 
 	const getToken = function() {
@@ -25,6 +26,7 @@ export const myStore = defineStore('main', () => {
 
 	return {
 		token,
+		reID,
 		toCarGoods,
 		getToken,
 		addGoods

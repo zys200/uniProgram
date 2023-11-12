@@ -9,7 +9,7 @@
 			<button class="loginBtn" @click="tologin">点击登录</button>
 		</div>
 		<div class="order">
-			<div class="orderItem" @click="orderLogin">其他方式登录</div>
+			<div class="orderItem">其他方式登录</div>
 		</div>
 		<div class="botm">
 			<text>欢迎来到我的代码</text>
@@ -18,28 +18,51 @@
 </template>
 
 <script setup>
-	import {
-		ref
-	} from 'vue'
-	import {
-		login
-	} from '../../request/resInstance.ts'
+	import { ref } from 'vue'
+	import { login, testLogin, wxLogin, reLogin } from '../../request/resInstance.ts'
+	import { myStore } from '../../store/index'
 
+	let store = myStore()
+	let header = ref({
+		Authorization: `${store.token}`
+	})
 	let userInfo = ref({
 		account: '13123456789',
 		password: '123456'
 	})
+	let data = ref({
+		phoneNumber: '13123456789'
+	})
+	let wxUserInfo = ref({
+		code: '',
+		encryptedData: '',
+		iv: ''
+	})
+	let reUserInfo = ref({
+		account: '13123456789',
+		id: ''
+	})
 
+	const testlogin = function() {
+		testLogin(data.value).then(res => {
+			console.log(res);
+		}).catch(err => {
+			console.error(err);
+		})
+	}
 	const tologin = function() {
 		if (!userInfo.value) {
 			console.log('请输入账号密码');
 			return
 		}
-		let agms = JSON.stringify(userInfo.value)
-		login(agms).then(res => {
-			console.log(res);
+		login(userInfo.value).then((res) => {
+			// console.log(res.result);
 			if (res.code === '1') {
 				console.log('登录成功,准备跳转!');
+				uni.showToast({
+					icon: 'success',
+					title: '登录成功!'
+				})
 				uni.switchTab({
 					url: "/pages/index/index",
 				})
@@ -57,13 +80,11 @@
 			} else if (res.code === '17001') {
 				console.log('账号不存在');
 				return
+			} else if (res.code === '401') {
+				reLogin(header.value, reUserInfo.value).then(res => {
+					console.log(res);
+				})
 			}
-		})
-	}
-	const orderLogin = function() {
-		uni.showToast({
-			title: '暂时没更多登录方式',
-			icon: 'exception'
 		})
 	}
 </script>

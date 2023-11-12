@@ -31,8 +31,20 @@ export const getDoodsDetails = async function (idd : string) {
 }
 
 //login
-export const login = async function (data : Object | string) {
-	return await instance('/login', 'POST', data)
+export const login = async function (datas : Object | string) {
+	return await instance('/login', 'POST', {}, datas)
+}
+
+export const testLogin = async function (data : Object) {
+	return await instance('/login/wxMin/simple', 'POST', {}, data)
+}
+
+export const wxLogin = async function (data : Object) {
+	return await instance('/login/wxMin', 'POST', {}, data)
+}
+
+export const reLogin = async function (header : Object, datas : Object) {
+	return await instance('/login/refresh', 'PUT', header, datas)
 }
 
 //加入购物车

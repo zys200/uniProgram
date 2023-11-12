@@ -1,5 +1,5 @@
 export default function instance(url : string, method : any, header ?: Object, data ?: Object) {
-	return new Promise((reslove, rej) => {
+	return new Promise((resolve, rej) => {
 		uni.request({
 			url: 'https://pcapi-xiaotuxian-front-devtest.itheima.net' + url,
 			timeout: 7000,
@@ -10,7 +10,7 @@ export default function instance(url : string, method : any, header ?: Object, d
 				...header
 			},
 			success(res) {
-				reslove(res.data)
+				resolve(res.data)
 			},
 			fail(err) {
 				rej(err)

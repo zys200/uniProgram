@@ -1,24 +1,43 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const request_resInstance = require("../../request/resInstance.js");
+const store_index = require("../../store/index.js");
 require("../../request/index.js");
 const _sfc_main = {
   __name: "login",
   setup(__props) {
+    let store = store_index.myStore();
+    let header = common_vendor.ref({
+      Authorization: `${store.token}`
+    });
     let userInfo = common_vendor.ref({
       account: "13123456789",
       password: "123456"
+    });
+    common_vendor.ref({
+      phoneNumber: "13123456789"
+    });
+    common_vendor.ref({
+      code: "",
+      encryptedData: "",
+      iv: ""
+    });
+    let reUserInfo = common_vendor.ref({
+      account: "13123456789",
+      id: ""
     });
     const tologin = function() {
       if (!userInfo.value) {
         console.log("请输入账号密码");
         return;
       }
-      let agms = JSON.stringify(userInfo.value);
-      request_resInstance.login(agms).then((res) => {
-        console.log(res);
+      request_resInstance.login(userInfo.value).then((res) => {
         if (res.code === "1") {
           console.log("登录成功,准备跳转!");
+          common_vendor.index.showToast({
+            icon: "success",
+            title: "登录成功!"
+          });
           common_vendor.index.switchTab({
             url: "/pages/index/index"
           });
@@ -36,13 +55,11 @@ const _sfc_main = {
         } else if (res.code === "17001") {
           console.log("账号不存在");
           return;
+        } else if (res.code === "401") {
+          request_resInstance.reLogin(header.value, reUserInfo.value).then((res2) => {
+            console.log(res2);
+          });
         }
-      });
-    };
-    const orderLogin = function() {
-      common_vendor.index.showToast({
-        title: "暂时没更多登录方式",
-        icon: "exception"
       });
     };
     return (_ctx, _cache) => {
@@ -51,8 +68,7 @@ const _sfc_main = {
         b: common_vendor.o(($event) => common_vendor.unref(userInfo).account = $event.detail.value),
         c: common_vendor.unref(userInfo).password,
         d: common_vendor.o(($event) => common_vendor.unref(userInfo).password = $event.detail.value),
-        e: common_vendor.o(tologin),
-        f: common_vendor.o(orderLogin)
+        e: common_vendor.o(tologin)
       };
     };
   }

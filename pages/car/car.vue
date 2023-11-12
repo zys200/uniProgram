@@ -20,7 +20,6 @@
 				</div>
 			</u-checkbox-group>
 		</div>
-		<button @click="getTotalPrices">click</button>
 		<div class="res">
 			<div class="kongbai">
 				<text>总价：{{totalPrices}}</text>

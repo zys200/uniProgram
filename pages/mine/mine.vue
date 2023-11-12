@@ -1,19 +1,14 @@
 <template>
 	<view>
-		mine
+		<button @click="hhh">click</button>
 	</view>
 </template>
 
-<script>
-	export default {
-		data() {
-			return {
-
-			}
-		},
-		methods: {
-
-		}
+<script setup>
+	const hhh = function() {
+		uni.navigateTo({
+			url: '/pages/login/login'
+		})
 	}
 </script>
 

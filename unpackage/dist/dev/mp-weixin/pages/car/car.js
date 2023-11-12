@@ -75,10 +75,9 @@ const _sfc_main = {
         d: common_vendor.p({
           modelValue: common_vendor.unref(checkboxValue1)
         }),
-        e: common_vendor.o(getTotalPrices),
-        f: common_vendor.t(common_vendor.unref(totalPrices)),
-        g: common_vendor.o(buttonClick),
-        h: common_vendor.p({
+        e: common_vendor.t(common_vendor.unref(totalPrices)),
+        f: common_vendor.o(buttonClick),
+        g: common_vendor.p({
           fill: true,
           ["button-group"]: common_vendor.unref(customButtonGroup1)
         })

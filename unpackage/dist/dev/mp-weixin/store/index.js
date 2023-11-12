@@ -2,6 +2,7 @@
 const common_vendor = require("../common/vendor.js");
 const myStore = common_vendor.defineStore("main", () => {
   let token = common_vendor.ref("");
+  let reID = common_vendor.ref("");
   let toCarGoods = common_vendor.ref([]);
   const getToken = function() {
     common_vendor.index.getStorage({
@@ -21,6 +22,7 @@ const myStore = common_vendor.defineStore("main", () => {
   };
   return {
     token,
+    reID,
     toCarGoods,
     getToken,
     addGoods
