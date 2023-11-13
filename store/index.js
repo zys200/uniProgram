@@ -6,6 +6,7 @@ export const myStore = defineStore('main', () => {
 	let token = ref('')
 	let reID = ref('')
 	let toCarGoods = ref([])
+	let addressDataList = ref([])
 
 	const getToken = function() {
 		uni.getStorage({
@@ -28,6 +29,7 @@ export const myStore = defineStore('main', () => {
 		token,
 		reID,
 		toCarGoods,
+		addressDataList,
 		getToken,
 		addGoods
 	}

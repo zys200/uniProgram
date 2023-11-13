@@ -163,6 +163,10 @@
 	let count = ref(0)
 	let realyId = ref('')
 
+	onMounted(() => {
+		getAllGoodsDatas()
+		store.getToken()
+	})
 	const getAllGoodsDatas = function() {
 		let instance = getCurrentPages()
 		goodsId.value = instance[1].options.id
@@ -264,7 +268,7 @@
 		toCarType.value = e.content.text
 		// options[2].value.info++ 
 		let header = ref({
-			'Authorization': `${store.token}`
+			'Authorization': store.token
 		})
 		let datas = JSON.stringify({
 			skuId: realyId.value,
@@ -290,10 +294,6 @@
 		// 	dynamicGoods.value = [{ name1: '', pic: '' }, { name2: '' }]
 		// }
 	}
-	onMounted(() => {
-		getAllGoodsDatas()
-		store.getToken()
-	})
 </script>
 
 <style scoped lang="less">

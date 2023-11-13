@@ -28,7 +28,6 @@ const _sfc_main = {
     }];
     common_vendor.onMounted(() => {
       getToCar.value = store.toCarGoods;
-      console.log(store.toCarGoods);
     });
     const checkboxChange = function(e) {
       console.log(e, "现在选中");

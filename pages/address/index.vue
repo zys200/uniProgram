@@ -1,16 +1,16 @@
 <template>
 	<div class="box">
-		<div class="content">
+		<div class="content" v-for="item in addressData" :key="item.id">
 			<div class="left">
 				<div class="top">
-					<div class="name">name</div>
-					<div class="phoneNum">564654654</div>
+					<div class="name">{{item.receiver}}</div>
+					<div class="phoneNum">{{item.contact}}</div>
 				</div>
 				<div class="address">
-					4654654654
+					{{item.fullLocation + item.address}}
 				</div>
 			</div>
-			<div class="right">
+			<div class="right" @click="toChangeAddress" :id="item.id">
 				<text>修改</text>
 			</div>
 		</div>
@@ -18,6 +18,30 @@
 </template>
 
 <script setup>
+	import { ref, onMounted } from 'vue'
+	import { myStore } from '../../store/index'
+	import { getAddress } from '../../request/resInstance'
+
+	let store = myStore()
+	let addressData = ref()
+
+	onMounted(() => {
+		let header = {
+			Authorization: store.token
+		}
+		getAddress(header).then(res => {
+			// console.log(res.result.slice(0, 2), 'res')
+			addressData.value = res.result?.slice(0, 2)
+			store.addressDataList = (res.result.slice(0, 2))
+			// console.log(store.addressDataList, 'store')
+		})
+	})
+	const toChangeAddress = function(e) {
+		let ids = e.currentTarget.id
+		uni.navigateTo({
+			url: "/pages/address/component/changeAddress?id=" + ids
+		})
+	}
 </script>
 
 <style scoped lang="less">
@@ -41,8 +65,9 @@
 					line-height: 35px;
 
 					.name {
-						width: 30%;
 						padding-left: 10px;
+						width: 30%;
+						font-size: 20px;
 					}
 				}
 

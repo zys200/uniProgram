@@ -11,6 +11,7 @@ if (!Math) {
   "./pages/login/login.js";
   "./pages/order/index.js";
   "./pages/address/index.js";
+  "./pages/address/component/changeAddress.js";
 }
 const _sfc_main = {};
 const App = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "C:/Users/张东宇/Desktop/Hbuilder/App.vue"]]);

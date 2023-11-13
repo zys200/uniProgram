@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "我的",
-  "usingComponents": {}
+  "usingComponents": {
+    "u-action-sheet": "../../uni_modules/uview-plus/components/u-action-sheet/u-action-sheet"
+  }
 }

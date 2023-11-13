@@ -18,8 +18,9 @@
   line-height: 35px;
 }
 .box .content .left .top .name.data-v-c47feaaa {
-  width: 30%;
   padding-left: 10px;
+  width: 30%;
+  font-size: 20px;
 }
 .box .content .left .address.data-v-c47feaaa {
   padding-left: 10px;

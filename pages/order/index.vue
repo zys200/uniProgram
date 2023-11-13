@@ -11,10 +11,12 @@
 			</div>
 		</div>
 		<view class="msg">
-			<u-action-sheet :actions="list" :title="title" :show="show" safeAreaInsetBottom
-				:closeOnClickOverlay="false"></u-action-sheet>
-			<u-button @click="isShow">配送时间</u-button>
-			<!-- <u-button @click="isShow">配送地址</u-button> -->
+			<u-form label-position="left" :model="modelFrom" :rules="rules" ref="form1">
+				<u-form-item label="地址" prop="userInfo.address" @click="pishow = true">
+					<u-input v-model="modelFrom.userInfo.address" placeholder="请选择地址" disabled border="none"></u-input>
+				</u-form-item>
+			</u-form>
+			<u-picker :show="pishow" :columns="nowAddress" @confirm="confirm"></u-picker>
 			<text>总价：{{}}</text>
 		</view>
 	</div>
@@ -29,19 +31,23 @@
 	const eventChannel = page.getOpenerEventChannel();
 	let store = myStore()
 	let nowGoodes = ref([])
-	let list = ref([{
-		name: '选项一',
-		subname: "选项一描述",
-		color: '#ffaa7f',
-		fontSize: '20'
-	}, {
-		name: '选项2',
-		subname: "选项一描述",
-		color: '#ffaa7f',
-		fontSize: '20'
-	}, ])
-	let title = 'one'
-	let show = ref(false)
+	let pishow = ref(false)
+	let modelFrom = ref({
+		userInfo: {
+			address: '',
+		},
+	})
+	let nowAddress = ref([
+		[]
+	])
+	let rules = {
+		'userInfo.address': {
+			type: 'string',
+			required: true,
+			message: '请选择地址',
+			trigger: ['blur', 'change']
+		}
+	}
 
 	onMounted(() => {
 		eventChannel.on('goodes', (data) => {
@@ -57,12 +63,15 @@
 				}
 			})
 		})
+		store.addressDataList?.forEach(v => {
+			nowAddress.value[0].push(v.fullLocation)
+		})
+		// console.log(nowAddress.value);
 	})
-	const isShow = function() {
-		show.value = true
-	}
-	const cloes = function() {
-		show.value = false
+	const confirm = function(e) {
+		let { value } = e
+		modelFrom.value.userInfo.address = value[0]
+		pishow.value = false
 	}
 </script>
 
@@ -96,7 +105,6 @@
 
 		.msg {
 			width: 100%;
-			background-color: aqua;
 		}
 	}
 </style>

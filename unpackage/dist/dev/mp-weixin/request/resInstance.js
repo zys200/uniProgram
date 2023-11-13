@@ -30,6 +30,10 @@ const reLogin = async function(header, datas) {
 const toCars = async function(header, datas) {
   return await request_index.instance("/member/cart", "POST", header, datas);
 };
+const getAddress = async function(header) {
+  return await request_index.instance("/member/address", "GET", header);
+};
+exports.getAddress = getAddress;
 exports.getBanner = getBanner;
 exports.getCategory = getCategory;
 exports.getCategoryMore = getCategoryMore;

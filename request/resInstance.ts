@@ -55,3 +55,8 @@ export const toCars = async function (header : Object, datas : Object) {
 export const changeCars = async function (skuId : String, header : Object, datas : Object) {
 	return await instance(`/member/cart/?skuId=${skuId}`, 'PUT', header, datas)
 }
+
+//地址相关
+export const getAddress = async function (header : Object) {
+	return await instance('/member/address', 'GET', header)
+}

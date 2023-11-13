@@ -47,7 +47,7 @@
 
 	onMounted(() => {
 		getToCar.value = store.toCarGoods
-		console.log(store.toCarGoods);
+		// console.log(store.toCarGoods);
 	})
 	//选择框
 	const checkboxChange = function(e) {

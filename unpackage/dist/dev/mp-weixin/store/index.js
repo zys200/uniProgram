@@ -4,6 +4,7 @@ const myStore = common_vendor.defineStore("main", () => {
   let token = common_vendor.ref("");
   let reID = common_vendor.ref("");
   let toCarGoods = common_vendor.ref([]);
+  let addressDataList = common_vendor.ref([]);
   const getToken = function() {
     common_vendor.index.getStorage({
       key: "userInfos",
@@ -24,6 +25,7 @@ const myStore = common_vendor.defineStore("main", () => {
     token,
     reID,
     toCarGoods,
+    addressDataList,
     getToken,
     addGoods
   };

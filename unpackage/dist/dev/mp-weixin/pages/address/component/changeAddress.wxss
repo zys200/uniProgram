@@ -1,0 +1,12 @@
+.box.data-v-ac28a024 {
+  width: 100%;
+}
+.box .boxItem .ufi.data-v-ac28a024 {
+  padding: 0 10px;
+  height: 70px;
+  line-height: 70px;
+}
+.box .btn.data-v-ac28a024 {
+  margin: 30 atuo;
+  width: 200px;
+}

@@ -63,6 +63,10 @@ const _sfc_main = {
     ]);
     let count = common_vendor.ref(0);
     let realyId = common_vendor.ref("");
+    common_vendor.onMounted(() => {
+      getAllGoodsDatas();
+      store.getToken();
+    });
     const getAllGoodsDatas = function() {
       let instance = getCurrentPages();
       goodsId.value = instance[1].options.id;
@@ -148,7 +152,7 @@ const _sfc_main = {
       }
       toCarType.value = e.content.text;
       let header = common_vendor.ref({
-        "Authorization": `${store.token}`
+        "Authorization": store.token
       });
       let datas = JSON.stringify({
         skuId: realyId.value,
@@ -168,10 +172,6 @@ const _sfc_main = {
       realyId.value = "";
       count.value = 0;
     };
-    common_vendor.onMounted(() => {
-      getAllGoodsDatas();
-      store.getToken();
-    });
     return (_ctx, _cache) => {
       var _a, _b;
       return common_vendor.e({

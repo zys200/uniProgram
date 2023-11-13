@@ -8,7 +8,8 @@
     "pages/details/details",
     "pages/login/login",
     "pages/order/index",
-    "pages/address/index"
+    "pages/address/index",
+    "pages/address/component/changeAddress"
   ],
   "window": {
     "navigationBarTextStyle": "black",
