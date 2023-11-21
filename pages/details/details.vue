@@ -156,10 +156,7 @@
 	let goodsSpecs = ref([])
 	let goodsSkus = ref([])
 	let goodsCategoty = ref([])
-	let dynamicGoods = ref([
-		{ name1: '', pic: '' },
-		{ name2: '' }
-	])
+	let dynamicGoods = ref([{ name1: '', pic: '' }, { name2: '' }])
 	let count = ref(0)
 	let realyId = ref('')
 
@@ -229,15 +226,8 @@
 				if (v.specs[0].valueName === dynamicGoods.value[0].name1 && count.value !== 0) {
 					realyId.value = v.id
 					return
-				} else {
-					uni.showToast({
-						icon: 'error',
-						title: '失败了！！'
-					})
-					return
 				}
 			})
-			return
 		} else {
 			uni.showToast({
 				icon: 'error',
@@ -258,41 +248,42 @@
 	const buttonClick = function(e) {
 		realyID()
 		if (realyId.value === '') {
-			// uni.showToast({
-			// 	icon: 'error',
-			// 	title: '请选择商品!'
-			// })
+			uni.showToast({
+				icon: 'error',
+				title: '失败了！！'
+			})
 			console.log(1);
 			return
-		}
-		toCarType.value = e.content.text
-		// options[2].value.info++ 
-		let header = ref({
-			'Authorization': store.token
-		})
-		let datas = JSON.stringify({
-			skuId: realyId.value,
-			count: count.value
-		})
-		if (toCarType.value === '加入购物车') {
-			toCars(header.value, datas).then(res => {
-				// console.log(res.result)
-				// res.reault.count = count.value
-				// console.log(res.result.id);
-				store.addGoods(res.result)
-				uni.showToast({
-					icon: 'success',
-					title: '好的,已添加到购物车'
-				})
-			})
 		} else {
-			console.log('购买');
+			toCarType.value = e.content.text
+			// options[2].value.info++ 
+			let header = ref({
+				'Authorization': store.token
+			})
+			let datas = JSON.stringify({
+				skuId: realyId.value,
+				count: count.value
+			})
+			if (toCarType.value === '加入购物车') {
+				toCars(header.value, datas).then(res => {
+					// console.log(res.result)
+					// res.reault.count = count.value
+					// console.log(res.result.id);
+					store.addGoods(res.result)
+					uni.showToast({
+						icon: 'success',
+						title: '好的,已添加到购物车'
+					})
+				})
+			} else {
+				console.log('购买');
+			}
+			realyId.value = ''
+			count.value = 0
+			// while (popup.value.close()) {
+			// 	dynamicGoods.value = [{ name1: '', pic: '' }, { name2: '' }]
+			// }
 		}
-		realyId.value = ''
-		count.value = 0
-		// while (popup.value.close()) {
-		// 	dynamicGoods.value = [{ name1: '', pic: '' }, { name2: '' }]
-		// }
 	}
 </script>
 

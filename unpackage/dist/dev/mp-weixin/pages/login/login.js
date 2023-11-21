@@ -14,18 +14,6 @@ const _sfc_main = {
       account: "13123456789",
       password: "123456"
     });
-    common_vendor.ref({
-      phoneNumber: "13123456789"
-    });
-    common_vendor.ref({
-      code: "",
-      encryptedData: "",
-      iv: ""
-    });
-    let reUserInfo = common_vendor.ref({
-      account: "13123456789",
-      id: ""
-    });
     const tologin = function() {
       if (!userInfo.value) {
         console.log("请输入账号密码");
@@ -45,6 +33,7 @@ const _sfc_main = {
             key: "userInfos",
             data: res.result.token
           });
+          store.token = res.result.token;
           return;
         } else if (res.code === "10017") {
           common_vendor.index.showToast({

@@ -1,4 +1,4 @@
-export default function instance(url : string, method : any, header ?: Object, data ?: Object) {
+export default function instance(url : string, method : any, header ?: object, data ?: object) {
 	return new Promise((resolve, rej) => {
 		uni.request({
 			url: 'https://pcapi-xiaotuxian-front-devtest.itheima.net' + url,

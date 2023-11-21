@@ -10,12 +10,14 @@ const _sfc_main = {
     let addressData = common_vendor.ref();
     common_vendor.onMounted(() => {
       let header = {
-        Authorization: store.token
+        Authorization: `${store.token}`
       };
+      console.log(header);
       request_resInstance.getAddress(header).then((res) => {
-        var _a;
+        var _a, _b;
         addressData.value = (_a = res.result) == null ? void 0 : _a.slice(0, 2);
-        store.addressDataList = res.result.slice(0, 2);
+        store.addressDataList = (_b = res.result) == null ? void 0 : _b.slice(0, 2);
+        console.log(res);
       });
     });
     const toChangeAddress = function(e) {

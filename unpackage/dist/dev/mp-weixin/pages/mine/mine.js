@@ -13,19 +13,42 @@ const _sfc_main = {
   setup(__props) {
     let list = [{ name: "选项一", subname: "选项一描述", color: "#ffaa7f", fontSize: "20" }];
     let show = common_vendor.ref(false);
+    let isLog = common_vendor.ref(false);
+    common_vendor.onMounted(() => {
+      common_vendor.index.getStorage({
+        key: "userInfos",
+        success() {
+          isLog.value = true;
+        }
+      });
+    });
     const toAddress = function() {
       common_vendor.index.navigateTo({
         url: "/pages/address/index"
       });
     };
+    const outLogin = function() {
+      common_vendor.index.removeStorageSync("userInfos");
+      isLog.value = false;
+    };
+    const toLog = function() {
+      common_vendor.index.navigateTo({
+        url: "/pages/login/login"
+      });
+    };
     return (_ctx, _cache) => {
-      return {
-        a: common_vendor.o(toAddress),
-        b: common_vendor.p({
+      return common_vendor.e({
+        a: common_vendor.unref(isLog)
+      }, common_vendor.unref(isLog) ? {
+        b: common_vendor.o(toAddress),
+        c: common_vendor.o(outLogin),
+        d: common_vendor.p({
           actions: common_vendor.unref(list),
           show: common_vendor.unref(show)
         })
-      };
+      } : {
+        e: common_vendor.o(toLog)
+      });
     };
   }
 };

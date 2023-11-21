@@ -1,5 +1,5 @@
 <template>
-	<div class="box">
+	<div class="box" v-if="isLog">
 		<div class="user">
 			<div class="imgsss">
 				<image src="../../static/five.jpg" class="imgs" />
@@ -54,24 +54,45 @@
 			<div class="moreItem">
 				<text>关于小兔鲜</text>
 			</div>
-			<div class="moreItem">
+			<div class="moreItem" @click="outLogin">
 				<text>退出登录</text>
 			</div>
 		</div>
 		<u-action-sheet :actions="list" :show="show"></u-action-sheet>
 	</div>
+	<div class="outLog" v-else>
+		<text @click="toLog">去登陆</text>
+	</div>
 </template>
 
 <script setup>
-	import { ref } from 'vue'
+	import { ref, onMounted } from 'vue'
 
 	let list = [{ name: '选项一', subname: "选项一描述", color: '#ffaa7f', fontSize: '20' }]
 	let show = ref(false)
+	let isLog = ref(false)
 
+	onMounted(() => {
+		uni.getStorage({
+			key: 'userInfos',
+			success() {
+				isLog.value = true
+			}
+		})
+	})
 	const toAddress = function() {
 		uni.navigateTo({
 			url: "/pages/address/index"
 		})
+	}
+	const outLogin = function() {
+		uni.removeStorageSync('userInfos');
+		isLog.value = false
+	}
+	const toLog = function() {
+		uni.navigateTo({
+			url: '/pages/login/login'
+		});
 	}
 </script>
 

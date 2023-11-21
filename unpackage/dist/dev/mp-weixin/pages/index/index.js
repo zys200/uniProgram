@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const store_index = require("../../store/index.js");
 const request_resInstance = require("../../request/resInstance.js");
 require("../../request/index.js");
 if (!Array) {
@@ -18,6 +19,7 @@ const Heat = () => "./components/Heat.js";
 const _sfc_main = {
   __name: "index",
   setup(__props) {
+    let store = store_index.myStore();
     let { screenHeight, safeAreaInsets } = common_vendor.index.getSystemInfoSync();
     let swiperDatas = common_vendor.ref([]);
     let childCategories = common_vendor.ref(null);
@@ -59,6 +61,9 @@ const _sfc_main = {
         recommedData.value = [...res.result.items];
         goon.value = Math.floor(res.result.pages / 10);
       });
+      if (store.token === "") {
+        store.getToken();
+      }
     });
     return (_ctx, _cache) => {
       return common_vendor.e({

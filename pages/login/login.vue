@@ -30,26 +30,26 @@
 		account: '13123456789',
 		password: '123456'
 	})
-	let data = ref({
-		phoneNumber: '13123456789'
-	})
-	let wxUserInfo = ref({
-		code: '',
-		encryptedData: '',
-		iv: ''
-	})
-	let reUserInfo = ref({
-		account: '13123456789',
-		id: ''
-	})
+	// let data = ref({
+	// 	phoneNumber: '13123456789'
+	// })
+	// let wxUserInfo = ref({
+	// 	code: '',
+	// 	encryptedData: '',
+	// 	iv: ''
+	// })
+	// let reUserInfo = ref({
+	// 	account: '13123456789',
+	// 	id: ''
+	// })
 
-	const testlogin = function() {
-		testLogin(data.value).then(res => {
-			console.log(res);
-		}).catch(err => {
-			console.error(err);
-		})
-	}
+	// const testlogin = function() {
+	// 	testLogin(data.value).then(res => {
+	// 		console.log(res);
+	// 	}).catch(err => {
+	// 		console.error(err);
+	// 	})
+	// }
 	const tologin = function() {
 		if (!userInfo.value) {
 			console.log('请输入账号密码');
@@ -70,6 +70,7 @@
 					key: 'userInfos',
 					data: res.result.token
 				})
+				store.token = res.result.token
 				return
 			} else if (res.code === '10017') {
 				uni.showToast({

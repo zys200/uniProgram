@@ -27,13 +27,15 @@
 
 	onMounted(() => {
 		let header = {
-			Authorization: store.token
+			Authorization: `${store.token}`
 		}
+		console.log(header);
 		getAddress(header).then(res => {
 			// console.log(res.result.slice(0, 2), 'res')
 			addressData.value = res.result?.slice(0, 2)
-			store.addressDataList = (res.result.slice(0, 2))
+			store.addressDataList = (res.result?.slice(0, 2))
 			// console.log(store.addressDataList, 'store')
+			console.log(res);
 		})
 	})
 	const toChangeAddress = function(e) {

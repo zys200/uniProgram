@@ -13,7 +13,7 @@ export const getHeat = async function () {
 	return await instance('/home/hot/mutli', 'GET')
 }
 
-export const getRecommed = async function (pages : Number) {
+export const getRecommed = async function (pages : number) {
 	return await instance(`/home/goods/guessLike?page=${pages}`, 'GET')
 }
 
@@ -31,32 +31,32 @@ export const getDoodsDetails = async function (idd : string) {
 }
 
 //login
-export const login = async function (datas : Object | string) {
+export const login = async function (datas : object | string) {
 	return await instance('/login', 'POST', {}, datas)
 }
 
-export const testLogin = async function (data : Object) {
+export const testLogin = async function (data : object) {
 	return await instance('/login/wxMin/simple', 'POST', {}, data)
 }
 
-export const wxLogin = async function (data : Object) {
+export const wxLogin = async function (data : object) {
 	return await instance('/login/wxMin', 'POST', {}, data)
 }
 
-export const reLogin = async function (header : Object, datas : Object) {
+export const reLogin = async function (header : object, datas : object) {
 	return await instance('/login/refresh', 'PUT', header, datas)
 }
 
 //加入购物车
-export const toCars = async function (header : Object, datas : Object) {
+export const toCars = async function (header : object, datas : object) {
 	return await instance('/member/cart', 'POST', header, datas)
 }
 
-export const changeCars = async function (skuId : String, header : Object, datas : Object) {
+export const changeCars = async function (skuId : string, header : object, datas : object) {
 	return await instance(`/member/cart/?skuId=${skuId}`, 'PUT', header, datas)
 }
 
 //地址相关
-export const getAddress = async function (header : Object) {
+export const getAddress = async function (header : object) {
 	return await instance('/member/address', 'GET', header)
 }

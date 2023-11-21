@@ -9,7 +9,7 @@ const myStore = common_vendor.defineStore("main", () => {
     common_vendor.index.getStorage({
       key: "userInfos",
       success(res) {
-        token.value = res.data;
+        token.value = res == null ? void 0 : res.data;
       }
     });
   };

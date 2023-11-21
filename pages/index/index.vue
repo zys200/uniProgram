@@ -24,12 +24,13 @@
 
 <script setup>
 	import { ref, onMounted } from 'vue'
-	import PubSub from 'pubsub-js'
+	import { myStore } from '../../store/index'
 	import { getBanner, getRecommed } from '../../request/resInstance'
 	import Top from './components/Top.vue'
 	import Categories from './components/Categories.vue'
 	import Heat from './components/Heat.vue'
 
+	let store = myStore()
 	let { screenHeight, safeAreaInsets } = uni.getSystemInfoSync()
 	let swiperDatas = ref([])
 	let childCategories = ref(null)
@@ -68,6 +69,9 @@
 			recommedData.value = [...res.result.items]
 			goon.value = Math.floor(res.result.pages / 10)
 		})
+		if (store.token === '') {
+			store.getToken()
+		}
 	})
 </script>
 

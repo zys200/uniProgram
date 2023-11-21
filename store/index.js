@@ -12,7 +12,7 @@ export const myStore = defineStore('main', () => {
 		uni.getStorage({
 			key: 'userInfos',
 			success(res) {
-				token.value = res.data
+				token.value = res?.data
 			}
 		})
 	}

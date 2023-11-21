@@ -57,10 +57,7 @@ const _sfc_main = {
     let goodsSpecs = common_vendor.ref([]);
     let goodsSkus = common_vendor.ref([]);
     let goodsCategoty = common_vendor.ref([]);
-    let dynamicGoods = common_vendor.ref([
-      { name1: "", pic: "" },
-      { name2: "" }
-    ]);
+    let dynamicGoods = common_vendor.ref([{ name1: "", pic: "" }, { name2: "" }]);
     let count = common_vendor.ref(0);
     let realyId = common_vendor.ref("");
     common_vendor.onMounted(() => {
@@ -120,15 +117,8 @@ const _sfc_main = {
           if (v.specs[0].valueName === dynamicGoods.value[0].name1 && count.value !== 0) {
             realyId.value = v.id;
             return;
-          } else {
-            common_vendor.index.showToast({
-              icon: "error",
-              title: "失败了！！"
-            });
-            return;
           }
         });
-        return;
       } else {
         common_vendor.index.showToast({
           icon: "error",
@@ -147,30 +137,35 @@ const _sfc_main = {
     const buttonClick = function(e) {
       realyID();
       if (realyId.value === "") {
+        common_vendor.index.showToast({
+          icon: "error",
+          title: "失败了！！"
+        });
         console.log(1);
         return;
-      }
-      toCarType.value = e.content.text;
-      let header = common_vendor.ref({
-        "Authorization": store.token
-      });
-      let datas = JSON.stringify({
-        skuId: realyId.value,
-        count: count.value
-      });
-      if (toCarType.value === "加入购物车") {
-        request_resInstance.toCars(header.value, datas).then((res) => {
-          store.addGoods(res.result);
-          common_vendor.index.showToast({
-            icon: "success",
-            title: "好的,已添加到购物车"
-          });
-        });
       } else {
-        console.log("购买");
+        toCarType.value = e.content.text;
+        let header = common_vendor.ref({
+          "Authorization": store.token
+        });
+        let datas = JSON.stringify({
+          skuId: realyId.value,
+          count: count.value
+        });
+        if (toCarType.value === "加入购物车") {
+          request_resInstance.toCars(header.value, datas).then((res) => {
+            store.addGoods(res.result);
+            common_vendor.index.showToast({
+              icon: "success",
+              title: "好的,已添加到购物车"
+            });
+          });
+        } else {
+          console.log("购买");
+        }
+        realyId.value = "";
+        count.value = 0;
       }
-      realyId.value = "";
-      count.value = 0;
     };
     return (_ctx, _cache) => {
       var _a, _b;
